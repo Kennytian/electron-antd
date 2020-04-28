@@ -3,7 +3,7 @@
   "appId": "org.electron.electron-antd",
   "version": "1.0.0",
   "buildVersion": "0001",
-  "description": "electron web app with antd",
+  "description": "electron web app with ant design",
   "private": false,
   "main": "dist/main/main.js",
   "author": "lanten",
@@ -16,7 +16,6 @@
     "package": "electron-builder build --publish never"
   },
   "dependencies": {
-    "@ant-design/icons": "^4.1.0",
     "antd": "^4.1.5",
     "axios": "^0.19.2",
     "chalk": "^4.0.0",
@@ -30,7 +29,6 @@
     "json-loader": "^0.5.7",
     "less": "^3.11.1",
     "less-loader": "^6.0.0",
-    "lodash.toarray": "^4.4.0",
     "mini-css-extract-plugin": "^0.9.0",
     "mysql": "^2.18.1",
     "node-xlsx": "^0.15.0",
