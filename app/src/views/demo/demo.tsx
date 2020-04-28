@@ -1,7 +1,9 @@
 import * as React from 'react';
-import { Button, Input, Spin, Card } from 'antd';
+import { Button, Input, Spin, Card, Upload } from 'antd';
 
 import { withStore } from '@/src/components';
+import { UploadChangeParam } from 'antd/lib/upload/interface';
+import { readFileSync } from 'fs';
 
 interface DemoProps extends PageProps, StoreProps {
   count: StoreStates['count'];
@@ -39,6 +41,31 @@ export default class Demo extends React.Component<DemoProps, DemoState> {
   componentDidMount() {
     console.log(this);
   }
+
+  uploadProps = {
+    name: 'file',
+    action: '#',
+    // headers: {
+    //   authorization: 'authorization-text',
+    // },
+    onChange(info: UploadChangeParam) {
+      console.log('info.file.status===', info.file.status);
+      if (info.file.status === 'done' || info.file.status === 'error') {
+        // @ts-ignore
+        const { path } = info?.file?.originFileObj;
+        const content = readFileSync(path).toString();
+        console.log(content);
+      }
+      // if (info.file.status !== 'uploading') {
+      //   console.log(info.file, info.fileList);
+      // }
+      // if (info.file.status === 'done') {
+      //   message.success(`${info.file.name} file uploaded successfully`);
+      // } else if (info.file.status === 'error') {
+      //   message.error(`${info.file.name} file upload failed.`);
+      // }
+    },
+  };
 
   render() {
     const { resData, loading, createWindowLoading, asyncDispatchLoading } = this.state;
@@ -108,6 +135,15 @@ export default class Demo extends React.Component<DemoProps, DemoState> {
 
             <Input.TextArea value={JSON.stringify(resData)} autoSize />
           </Spin>
+        </Card>
+
+        <Card title="文件上传" className="mb-16">
+          <Upload {...this.uploadProps}>
+            <Button>
+              <i className="ri-file-upload-line" />
+              <span style={{ marginLeft: 3, marginTop: -8 }}>文件上传</span>
+            </Button>
+          </Upload>
         </Card>
       </div>
     );

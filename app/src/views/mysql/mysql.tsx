@@ -1,11 +1,12 @@
+import { remote } from 'electron';
+import { writeFileSync } from 'fs';
 import React from 'react';
-import { Button, DatePicker, message, Divider, Col, Tooltip, Table, Card, Popover } from 'antd';
-import { CheckCircleOutlined, StarFilled, StarOutlined, StarTwoTone } from '@ant-design/icons';
-
+import { Button, Tooltip, Table, Card } from 'antd';
+import { EMP_ALL, EXCEL_COLS_WIDTH, EXCEL_HEADERS, TABLE_COLS } from './const';
 import './mysql.less';
 
-/* eslint-disable */
-export const EMP_ALL = `select ifnull(e.Name,'') 姓名, '' as '部门', '' as '小组', '' as '职务', ifnull(e.Phone,'') as 手机号, ifnull(e.Identity,'') as 身份证, ifnull(e.CreaterTime,'') as 入职时间, (case e.IsQuite when 0 then '在职' when 1 then '离职' end) as 状态, e.ID as 旧系统员工ID, substring_index(e.code,' ',1) as 旧系统小组,substring_index(e.code,' ',-1) as 旧系统编号 from tbl_emp as e where e.Code != 'admin' and e.Code not like '%磅%' and e.isQuite=0 order by e.CreaterTime desc;`;
+const xlsx = require('node-xlsx');
+const toArray = require('lodash.toarray');
 
 const mysql = require('mysql');
 const connection = mysql.createConnection({
@@ -15,63 +16,7 @@ const connection = mysql.createConnection({
   database: 'ews',
 });
 
-const columns = [
-  {
-    title: '姓名',
-    dataIndex: '姓名',
-    key: 'A',
-  },
-  {
-    title: '部门',
-    dataIndex: '部门',
-    key: 'B',
-  },
-  {
-    title: '小组',
-    dataIndex: '小组',
-    key: 'C',
-  },
-  {
-    title: '职务',
-    dataIndex: '职务',
-    key: 'D',
-  },
-  {
-    title: '手机号',
-    dataIndex: '手机号',
-    key: 'E',
-  },
-  {
-    title: '身份证',
-    dataIndex: '身份证',
-    key: 'F',
-  },
-  {
-    title: '入职时间',
-    dataIndex: '入职时间',
-    key: 'G',
-  },
-  {
-    title: '状态',
-    dataIndex: '状态',
-    key: 'H',
-  },
-  {
-    title: '旧系统员工ID',
-    dataIndex: '旧系统员工ID',
-    key: 'I',
-  },
-  {
-    title: '旧系统小组',
-    dataIndex: '旧系统小组',
-    key: 'J',
-  },
-  {
-    title: '旧系统编号',
-    dataIndex: 'age',
-    key: 'K',
-  },
-];
+let exportData: ReadonlyArray<any> = [];
 
 export default class MySQL extends React.Component<PageProps> {
   state = {
@@ -82,13 +27,36 @@ export default class MySQL extends React.Component<PageProps> {
     connection.connect();
     connection.query(EMP_ALL, (error: any, results: ReadonlyArray<any>) => {
       if (error) throw error;
+      exportData = results;
       this.setState({ dataSource: results });
     });
     connection.end();
   }
 
-  onExport() {
-    console.log('1111');
+  async onExport() {
+    const defaultName = '旧员工导出数据';
+    const options: Electron.SaveDialogOptions = {
+      title: '保存文件',
+      defaultPath: defaultName,
+      buttonLabel: '保存',
+      filters: [
+        { name: 'Excel文件', extensions: ['xlsx'] },
+        { name: '所有文件', extensions: ['*'] },
+      ],
+    };
+
+    const { filePath, canceled } = await remote.dialog.showSaveDialog(options);
+    if (filePath && !canceled) {
+      const data = exportData.map((item, index) => {
+        if (index === 0) return EXCEL_HEADERS;
+        return toArray(item);
+      });
+
+      const cols = { '!cols': EXCEL_COLS_WIDTH };
+      const sheetName = defaultName;
+      const buffer = xlsx.build([{ name: sheetName, data }], cols);
+      writeFileSync(filePath, buffer);
+    }
   }
 
   render() {
@@ -104,10 +72,9 @@ export default class MySQL extends React.Component<PageProps> {
         }
       >
         <Table
-          style={{ width: '100%', height: '100%' }}
           className="mysql flex column center"
           dataSource={this.state.dataSource}
-          columns={columns}
+          columns={TABLE_COLS}
           rowKey="旧系统员工ID"
         />
       </Card>
