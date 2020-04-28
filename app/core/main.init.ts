@@ -3,6 +3,8 @@ import { store } from './store'
 import * as api from './api'
 
 export async function initMain() {
+  console.log('initMain===================')
+
   return new Promise(async (resolve) => {
     global.__$tools = tools
     global.__$api = api

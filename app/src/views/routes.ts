@@ -13,7 +13,7 @@ const routes: RouteConfig[] = [
     createConfig: {
       showSidebar: true,
       saveWindowBounds: true,
-      // openDevTools: true,
+      openDevTools: process.env.NODE_ENV === 'development',
     },
   },
 ]

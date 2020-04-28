@@ -18,7 +18,6 @@ export const trayMenus: MenuItemConstructorOptions[] = [
       { label: 'Log Viewer', click: () => $tools.createWindow('LogViewer') },
       { type: 'separator' },
       { label: 'About', click: () => $tools.createWindow('About') },
-      { label: 'MySQL', click: () => $tools.createWindow('MySQL') },
     ],
   },
 
