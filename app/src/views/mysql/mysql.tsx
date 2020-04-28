@@ -1,19 +1,19 @@
-import React from 'react'
-import { Button, DatePicker, message, Divider, Col, Tooltip, Table, Card, Popover } from 'antd'
-import { CheckCircleOutlined, StarFilled, StarOutlined, StarTwoTone } from '@ant-design/icons'
+import React from 'react';
+import { Button, DatePicker, message, Divider, Col, Tooltip, Table, Card, Popover } from 'antd';
+import { CheckCircleOutlined, StarFilled, StarOutlined, StarTwoTone } from '@ant-design/icons';
 
-import './mysql.less'
+import './mysql.less';
 
 /* eslint-disable */
-export const EMP_ALL = `select ifnull(e.Name,'') 姓名, '' as '部门', '' as '小组', '' as '职务', ifnull(e.Phone,'') as 手机号, ifnull(e.Identity,'') as 身份证, ifnull(e.CreaterTime,'') as 入职时间, (case e.IsQuite when 0 then '在职' when 1 then '离职' end) as 状态, e.ID as 旧系统员工ID, substring_index(e.code,' ',1) as 旧系统小组,substring_index(e.code,' ',-1) as 旧系统编号 from tbl_emp as e where e.Code != 'admin' and e.Code not like '%磅%' and e.isQuite=0 order by e.CreaterTime desc;`
+export const EMP_ALL = `select ifnull(e.Name,'') 姓名, '' as '部门', '' as '小组', '' as '职务', ifnull(e.Phone,'') as 手机号, ifnull(e.Identity,'') as 身份证, ifnull(e.CreaterTime,'') as 入职时间, (case e.IsQuite when 0 then '在职' when 1 then '离职' end) as 状态, e.ID as 旧系统员工ID, substring_index(e.code,' ',1) as 旧系统小组,substring_index(e.code,' ',-1) as 旧系统编号 from tbl_emp as e where e.Code != 'admin' and e.Code not like '%磅%' and e.isQuite=0 order by e.CreaterTime desc;`;
 
-const mysql = require('mysql')
+const mysql = require('mysql');
 const connection = mysql.createConnection({
   host: 'localhost',
   user: 'root',
   password: 'root',
   database: 'ews',
-})
+});
 
 const columns = [
   {
@@ -71,24 +71,24 @@ const columns = [
     dataIndex: 'age',
     key: 'K',
   },
-]
+];
 
 export default class MySQL extends React.Component<PageProps> {
   state = {
     dataSource: [],
-  }
+  };
 
   componentDidMount(): void {
-    connection.connect()
+    connection.connect();
     connection.query(EMP_ALL, (error: any, results: ReadonlyArray<any>) => {
-      if (error) throw error
-      this.setState({ dataSource: results })
-    })
-    connection.end()
+      if (error) throw error;
+      this.setState({ dataSource: results });
+    });
+    connection.end();
   }
 
   onExport() {
-    console.log('1111')
+    console.log('1111');
   }
 
   render() {
@@ -111,6 +111,6 @@ export default class MySQL extends React.Component<PageProps> {
           rowKey="旧系统员工ID"
         />
       </Card>
-    )
+    );
   }
 }

@@ -16,6 +16,6 @@ const routes: RouteConfig[] = [
       hideMenus: true,
     },
   },
-]
+];
 
-export default routes
+export default routes;

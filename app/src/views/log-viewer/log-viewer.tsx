@@ -1,15 +1,15 @@
-import React from 'react'
-import $c from 'classnames'
-import { LogFile, LogReader, LogDetailLine } from './log-reader'
+import React from 'react';
+import $c from 'classnames';
+import { LogFile, LogReader, LogDetailLine } from './log-reader';
 
-import './log-viewer.less'
+import './log-viewer.less';
 
 interface Props extends PageProps {}
 
 interface State {
-  logFiles: LogFile[]
-  activeFile: Partial<LogFile>
-  logDetail: LogDetailLine[]
+  logFiles: LogFile[];
+  activeFile: Partial<LogFile>;
+  logDetail: LogDetailLine[];
 }
 
 export default class LogViewer extends React.Component<Props, State> {
@@ -17,29 +17,29 @@ export default class LogViewer extends React.Component<Props, State> {
     logFiles: [],
     activeFile: {},
     logDetail: [],
-  }
+  };
 
-  private logReader = new LogReader()
-  private logDetailRef = React.createRef<HTMLDivElement>()
+  private logReader = new LogReader();
+  private logDetailRef = React.createRef<HTMLDivElement>();
 
   private TYPE_COLORS = {
     info: 'text-info',
     warn: 'text-warn',
     error: 'text-error',
-  }
+  };
 
   constructor(props: Props) {
-    super(props)
-    this.state.logFiles = this.logReader.getLogFiles()
+    super(props);
+    this.state.logFiles = this.logReader.getLogFiles();
   }
 
   componentDidMount() {
-    const { logFiles } = this.state
-    this.openLogFile(logFiles[0])
+    const { logFiles } = this.state;
+    this.openLogFile(logFiles[0]);
   }
 
   render() {
-    const { logFiles, activeFile, logDetail } = this.state
+    const { logFiles, activeFile, logDetail } = this.state;
     return (
       <div className="flex log-viewer">
         <ul className="log-list">
@@ -57,12 +57,12 @@ export default class LogViewer extends React.Component<Props, State> {
           {logDetail.map(this.renderLogLine)}
         </code>
       </div>
-    )
+    );
   }
 
   /** 渲染日志行 */
   renderLogLine = (v: LogDetailLine, i: number) => {
-    const color = this.TYPE_COLORS[v.type]
+    const color = this.TYPE_COLORS[v.type];
     return (
       <p key={i} className="text-gray">
         {v.date && (
@@ -82,20 +82,20 @@ export default class LogViewer extends React.Component<Props, State> {
         )}
         <span className="text-light"> &nbsp;{v.message}</span>
       </p>
-    )
-  }
+    );
+  };
 
   /** 打开并监听日志文件 */
   openLogFile(file: LogFile) {
     this.setState({ activeFile: file, logDetail: [] }, () => {
       this.logReader.openLogFile(file, (detail) => {
         this.setState({ logDetail: this.state.logDetail.concat(detail) }, () => {
-          const { current: detailDom } = this.logDetailRef
+          const { current: detailDom } = this.logDetailRef;
           if (detailDom) {
-            detailDom.scrollTop = detailDom.scrollHeight
+            detailDom.scrollTop = detailDom.scrollHeight;
           }
-        })
-      })
-    })
+        });
+      });
+    });
   }
 } // class LogViewer end

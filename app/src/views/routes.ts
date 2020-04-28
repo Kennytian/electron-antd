@@ -16,6 +16,6 @@ const routes: RouteConfig[] = [
       openDevTools: process.env.NODE_ENV === 'development',
     },
   },
-]
+];
 
-export default routes
+export default routes;

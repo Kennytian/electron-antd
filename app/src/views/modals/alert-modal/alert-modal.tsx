@@ -1,12 +1,12 @@
-import React from 'react'
-import { Button } from 'antd'
+import React from 'react';
+import { Button } from 'antd';
 
-import './alert-modal.less'
+import './alert-modal.less';
 
 interface AlertModalQuery {
-  type: 'info' | 'warn' | 'error'
-  title: string
-  message: string
+  type: 'info' | 'warn' | 'error';
+  title: string;
+  message: string;
 }
 
 const TYPES_CONFIG = {
@@ -19,16 +19,16 @@ const TYPES_CONFIG = {
   error: {
     icon: <i className="fs-48 text-error ri-close-circle-fill" />,
   },
-}
+};
 
 export default class AlertModal extends React.Component<PageProps<{}, AlertModalQuery>> {
   get typesConfig() {
-    const { type } = this.props.query
-    return TYPES_CONFIG[type || 'info']
+    const { type } = this.props.query;
+    return TYPES_CONFIG[type || 'info'];
   }
 
   render() {
-    const { title, message } = this.props.query
+    const { title, message } = this.props.query;
     return (
       <div className="alert-modal flex column">
         <div className="content flex-1 flex p-16">
@@ -43,13 +43,13 @@ export default class AlertModal extends React.Component<PageProps<{}, AlertModal
           <Button
             type="primary"
             onClick={() => {
-              this.props.closeWindow()
+              this.props.closeWindow();
             }}
           >
             close
           </Button>
         </div>
       </div>
-    )
+    );
   }
 } // class AlertModal end

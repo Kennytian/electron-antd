@@ -1,19 +1,19 @@
-import React from 'react'
-import $c from 'classnames'
+import React from 'react';
+import $c from 'classnames';
 
-import { AppTitlebar, AppSidebar } from '../'
+import { AppTitlebar, AppSidebar } from '../';
 
-import './app-layout.less'
+import './app-layout.less';
 
 interface AppLayoutProps {
-  createConfig: CreateConfig
-  children: any
+  createConfig: CreateConfig;
+  children: any;
 }
 
 export class AppLayout extends React.Component<AppLayoutProps> {
   render() {
-    const { createConfig } = this.props
-    console.log('createConfig===', createConfig)
+    const { createConfig } = this.props;
+    console.log('createConfig===', createConfig);
     return (
       <div className={$c('flex app-layout', { 'has-titlebar': createConfig.showTitlebar }, process.platform)}>
         {createConfig.showSidebar ? <AppSidebar /> : null}
@@ -22,6 +22,6 @@ export class AppLayout extends React.Component<AppLayoutProps> {
           <div className="app-content">{this.props.children}</div>
         </div>
       </div>
-    )
+    );
   }
 } // class AppLayout end

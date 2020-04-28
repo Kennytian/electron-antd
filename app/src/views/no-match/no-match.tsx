@@ -1,7 +1,7 @@
-import * as React from 'react'
-import { Button, Result } from 'antd'
+import * as React from 'react';
+import { Button, Result } from 'antd';
 
-import './no-match.less'
+import './no-match.less';
 
 export default class ErrorPage extends React.Component<PageProps> {
   render() {
@@ -18,6 +18,6 @@ export default class ErrorPage extends React.Component<PageProps> {
           }
         />
       </div>
-    )
+    );
   }
 } // class ErrorPage end
