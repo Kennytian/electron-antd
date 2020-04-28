@@ -1,7 +1,7 @@
-import React from 'react'
-import { shell } from 'electron'
+import React from 'react';
+import { shell } from 'electron';
 
-import './about.less'
+import './about.less';
 
 export default class About extends React.Component<PageProps> {
   render() {
@@ -16,7 +16,7 @@ export default class About extends React.Component<PageProps> {
           Copyright © {new Date().getFullYear()}{' '}
           <a
             onClick={() => {
-              shell.openExternal('https://github.com/lanten')
+              shell.openExternal('https://github.com/lanten');
             }}
           >
             lanten.
@@ -24,6 +24,6 @@ export default class About extends React.Component<PageProps> {
           All rights (demo)
         </p>
       </div>
-    )
+    );
   }
 } // class About end

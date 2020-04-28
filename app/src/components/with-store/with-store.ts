@@ -1,4 +1,4 @@
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
 
 /**
  * 挂载 Redux Store
@@ -10,39 +10,39 @@ export function withStore(
   mapStates?: (states: StoreStates) => any
 ): any {
   if (options instanceof Function) {
-    return connect(mapStates ?? ((states) => states), (dispatch) => new Object({ dispatch }))(options)
+    return connect(mapStates ?? ((states) => states), (dispatch) => new Object({ dispatch }))(options);
   } else {
     return function (Component: React.ComponentClass<any>) {
       return connect(
         mapStates ??
           ((states: StoreStates) => {
-            const resState = {}
+            const resState = {};
             if (options instanceof Array) {
               options.forEach((val) => {
                 if (typeof val === 'string') {
-                  resState[val] = states[val]
+                  resState[val] = states[val];
                 } else {
-                  Object.assign(resState, mapAliasStates(val, states))
+                  Object.assign(resState, mapAliasStates(val, states));
                 }
-              })
+              });
             } else {
-              Object.assign(resState, mapAliasStates(options, states))
+              Object.assign(resState, mapAliasStates(options, states));
             }
-            return resState
+            return resState;
           }),
         (dispatch) => new Object({ dispatch })
-      )(Component)
-    }
+      )(Component);
+    };
   }
 }
 
 function mapAliasStates(alias: AliasStates, states: StoreStates) {
-  const resState = {}
+  const resState = {};
 
   for (const key in alias) {
-    const statesKey = alias[key]
-    resState[key] = states[statesKey]
+    const statesKey = alias[key];
+    resState[key] = states[statesKey];
   }
 
-  return resState
+  return resState;
 }

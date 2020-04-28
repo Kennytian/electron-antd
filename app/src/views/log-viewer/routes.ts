@@ -10,6 +10,6 @@ const routes: RouteConfig[] = [
       saveWindowBounds: true,
     },
   },
-]
+];
 
-export default routes
+export default routes;

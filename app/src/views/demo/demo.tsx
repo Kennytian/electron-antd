@@ -1,18 +1,18 @@
-import * as React from 'react'
-import { Button, Input, Spin, Card } from 'antd'
+import * as React from 'react';
+import { Button, Input, Spin, Card } from 'antd';
 
-import { withStore } from '@/src/components'
+import { withStore } from '@/src/components';
 
 interface DemoProps extends PageProps, StoreProps {
-  count: StoreStates['count']
-  countAlias: StoreStates['count']
+  count: StoreStates['count'];
+  countAlias: StoreStates['count'];
 }
 
 declare interface DemoState {
-  resData: queryTestInfoUsingGET.Response | {}
-  loading: boolean
-  createWindowLoading: boolean
-  asyncDispatchLoading: boolean
+  resData: queryTestInfoUsingGET.Response | {};
+  loading: boolean;
+  createWindowLoading: boolean;
+  asyncDispatchLoading: boolean;
 }
 
 /**
@@ -29,20 +29,20 @@ export default class Demo extends React.Component<DemoProps, DemoState> {
     loading: false,
     createWindowLoading: false,
     asyncDispatchLoading: false,
-  }
+  };
 
   // 构造函数
   constructor(props: DemoProps) {
-    super(props)
+    super(props);
   }
 
   componentDidMount() {
-    console.log(this)
+    console.log(this);
   }
 
   render() {
-    const { resData, loading, createWindowLoading, asyncDispatchLoading } = this.state
-    const { count: reduxCount, countAlias } = this.props
+    const { resData, loading, createWindowLoading, asyncDispatchLoading } = this.state;
+    const { count: reduxCount, countAlias } = this.props;
     return (
       <div className="layout-padding">
         <Card title="Redux Test" className="mb-16">
@@ -53,7 +53,7 @@ export default class Demo extends React.Component<DemoProps, DemoState> {
             <Button
               type="primary"
               onClick={() => {
-                this.props.dispatch({ type: 'ACTION_ADD_COUNT', data: reduxCount + 1 })
+                this.props.dispatch({ type: 'ACTION_ADD_COUNT', data: reduxCount + 1 });
               }}
             >
               Add
@@ -63,7 +63,7 @@ export default class Demo extends React.Component<DemoProps, DemoState> {
               className="ml-16"
               type="primary"
               onClick={() => {
-                this.props.dispatch({ type: 'ACTION_ADD_COUNT', data: countAlias + 1 })
+                this.props.dispatch({ type: 'ACTION_ADD_COUNT', data: countAlias + 1 });
               }}
             >
               Add (alias)
@@ -74,7 +74,7 @@ export default class Demo extends React.Component<DemoProps, DemoState> {
               type="primary"
               loading={asyncDispatchLoading}
               onClick={() => {
-                this.props.dispatch(this.asyncDispatch)
+                this.props.dispatch(this.asyncDispatch);
               }}
             >
               Add (async)
@@ -110,53 +110,53 @@ export default class Demo extends React.Component<DemoProps, DemoState> {
           </Spin>
         </Card>
       </div>
-    )
+    );
   }
 
   asyncDispatch = (dispatch: Dispatch) => {
     return new Promise((resolve) => {
-      this.setState({ asyncDispatchLoading: true })
+      this.setState({ asyncDispatchLoading: true });
       setTimeout(() => {
-        const { count } = this.props
-        dispatch({ type: 'ACTION_ADD_COUNT', data: count + 1 })
-        this.setState({ asyncDispatchLoading: false })
-        resolve()
-      }, 1000)
-    })
-  }
+        const { count } = this.props;
+        dispatch({ type: 'ACTION_ADD_COUNT', data: count + 1 });
+        this.setState({ asyncDispatchLoading: false });
+        resolve();
+      }, 1000);
+    });
+  };
 
   openNewWindow = () => {
-    this.setState({ createWindowLoading: true })
-    $tools.createWindow('Demo').finally(() => this.setState({ createWindowLoading: false }))
-  }
+    this.setState({ createWindowLoading: true });
+    $tools.createWindow('Demo').finally(() => this.setState({ createWindowLoading: false }));
+  };
 
   requestTest() {
-    this.setState({ loading: true })
+    this.setState({ loading: true });
     $api
       .queryTestInfo({})
       .then((resData) => {
-        this.setState({ resData })
+        this.setState({ resData });
       })
-      .finally(() => this.setState({ loading: false }))
+      .finally(() => this.setState({ loading: false }));
   }
 
   requestTestError() {
-    this.setState({ loading: true })
+    this.setState({ loading: true });
     $api
       .queryTestInfoError({})
       .catch((resData) => {
-        this.setState({ resData })
+        this.setState({ resData });
       })
-      .finally(() => this.setState({ loading: false }))
+      .finally(() => this.setState({ loading: false }));
   }
 
   requestTestErrorModal() {
-    this.setState({ loading: true })
+    this.setState({ loading: true });
     $api
       .queryTestInfoError({}, { errorType: 'modal' })
       .catch((resData) => {
-        this.setState({ resData })
+        this.setState({ resData });
       })
-      .finally(() => this.setState({ loading: false }))
+      .finally(() => this.setState({ loading: false }));
   }
 } // class Demo end

@@ -4,9 +4,9 @@ import {
   MapDispatchToPropsParam,
   MergeProps,
   Options,
-} from 'react-redux'
+} from 'react-redux';
 
-export type MapStateList = (StoreStateKeys | AliasStates)[] | AliasStates
+export type MapStateList = (StoreStateKeys | AliasStates)[] | AliasStates;
 
 /**
  * 挂载 Redux Store
@@ -14,36 +14,36 @@ export type MapStateList = (StoreStateKeys | AliasStates)[] | AliasStates
  * @param mapStates
  */
 export function withStore(options: MapStateList): any {
-  return connect(mapStates(options), (dispatch: any) => new Object({ dispatch }))
+  return connect(mapStates(options), (dispatch: any) => new Object({ dispatch }));
 }
 
 export function mapStates(options: MapStateList): MapStateToPropsParam<{}, {}, StoreStates> {
   return (states: StoreStates) => {
-    const resState = {}
+    const resState = {};
     if (options instanceof Array) {
       options.forEach((val) => {
         if (typeof val === 'string') {
-          resState[val] = states[val]
+          resState[val] = states[val];
         } else {
-          Object.assign(resState, mapAliasStates(val, states))
+          Object.assign(resState, mapAliasStates(val, states));
         }
-      })
+      });
     } else {
-      Object.assign(resState, mapAliasStates(options, states))
+      Object.assign(resState, mapAliasStates(options, states));
     }
-    return resState
-  }
+    return resState;
+  };
 }
 
 function mapAliasStates(alias: AliasStates, states: StoreStates) {
-  const resState = {}
+  const resState = {};
 
   for (const key in alias) {
-    const statesKey = alias[key]
-    resState[key] = states[statesKey]
+    const statesKey = alias[key];
+    resState[key] = states[statesKey];
   }
 
-  return resState
+  return resState;
 }
 
 /**
@@ -55,20 +55,20 @@ export type InferableComponentEnhancerWithProps<TInjectedProps, TNeedsProps> = <
   TComponent extends React.ComponentType<TInjectedProps & TNeedsProps>
 >(
   component: TComponent
-) => TComponent
+) => TComponent;
 
 export interface TSConnect {
   <TStateProps = {}, TDispatchProps = {}, TOwnProps = {}>(
     mapStateToProps?: MapStateToPropsParam<TStateProps, TOwnProps, StoreStates>,
     mapDispatchToProps?: MapDispatchToPropsParam<TDispatchProps, TOwnProps>
-  ): InferableComponentEnhancerWithProps<TStateProps & TDispatchProps, TOwnProps>
+  ): InferableComponentEnhancerWithProps<TStateProps & TDispatchProps, TOwnProps>;
 
   <TStateProps = {}, TDispatchProps = {}, TOwnProps = {}, TMergedProps = {}>(
     mapStateToProps?: MapStateToPropsParam<TStateProps, TOwnProps, StoreStates>,
     mapDispatchToProps?: MapDispatchToPropsParam<TDispatchProps, TOwnProps>,
     mergeProps?: MergeProps<TStateProps, TDispatchProps, TOwnProps, TMergedProps>,
     options?: Options<TStateProps, TOwnProps, TMergedProps>
-  ): InferableComponentEnhancerWithProps<TMergedProps, TOwnProps>
+  ): InferableComponentEnhancerWithProps<TMergedProps, TOwnProps>;
 }
 
-export const connect = originalConnect as TSConnect
+export const connect = originalConnect as TSConnect;

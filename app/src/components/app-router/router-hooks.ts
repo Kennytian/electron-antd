@@ -5,6 +5,6 @@
  * @this AppRouter
  */
 export function beforeRouter(props: PageProps, next: Function): boolean | void | Promise<boolean | void> {
-  window.dispatchEvent(new CustomEvent('router_update', { detail: props }))
-  next()
+  window.dispatchEvent(new CustomEvent('router_update', { detail: props }));
+  next();
 }

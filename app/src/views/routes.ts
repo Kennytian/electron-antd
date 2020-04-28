@@ -16,6 +16,6 @@ const routes: RouteConfig[] = [
       // openDevTools: true,
     },
   },
-]
+];
 
-export default routes
+export default routes;
