@@ -46,7 +46,6 @@ module.exports = {
 
     indent: ['error', 2, { SwitchCase: 1 }], // 强制使用两个空格作为缩进
     quotes: ['error', 'single'], //强制使用单引号
-    semi: ['error', 'never'], //强制不使用分号结尾
     'comma-dangle': ['error', 'always-multiline'], // 逗号结束
     'no-param-reassign': 'error', // 禁止对 function 的参数进行重新赋值
     'jsx-quotes': ['error', 'prefer-double'], // 强制所有 JSX 属性值使用双引号。
@@ -67,4 +66,4 @@ module.exports = {
     '@typescript-eslint/no-unused-vars': 1, // 导入内容未使用
     '@typescript-eslint/camelcase': 1,
   },
-}
+};
