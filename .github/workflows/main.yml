@@ -6,9 +6,6 @@ on:
     tags:
       - 'v*.*.*'
 
-env:
-  PRODUCT_NAME: '旧系列员工导出'
-
 jobs:
   release:
     runs-on: ${{matrix.os}}
@@ -45,17 +42,39 @@ jobs:
         run: |
           yarn build
 
-      - name: Cleanup artifacts
-        if: matrix.os != 'windows-latest'
-        run: |
-          mkdir artifacts
-          mv "release/(*.exe,*.deb,*.AppImage,*.dmg)" artifacts || true
+      - name: Get package.json version
+        id: version
+        uses: notiz-dev/github-action-json-property@release
+        with:
+          path: ./package.json
+          prop_path: version
+      - run: echo ${{steps.version.outputs.prop}}
 
-      - name: Cleanup artifacts Win
+      - name: Get package.json productName
+        id: productName
+        uses: notiz-dev/github-action-json-property@release
+        with:
+          path: ./package.json
+          prop_path: productName
+      - run: echo ${{steps.productName.outputs.prop}}
+
+      - name: Create artifact folder
+      - run: mkdir artifacts
+
+      - name: Move Windows platform exe file
         if: matrix.os == 'windows-latest'
         run: |
-          mkdir artifacts
-          mv release/*.exe artifacts
+          mv "release/${{steps.productName.outputs.prop}}-${{steps.version.outputs.prop}}.exe" artifacts
+
+      - name: Move macOS platform dmg file
+        if: matrix.os == 'macos-latest'
+        run: |
+          mv "release/${{steps.productName.outputs.prop}}-${{steps.version.outputs.prop}}.dmg" artifacts
+
+      - name: Move Ubuntu platform AppImage file
+        if: matrix.os == 'ubuntu-latest'
+        run: |
+          mv "release/${{steps.productName.outputs.prop}}-${{steps.version.outputs.prop}}.AppImage" artifacts
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v2

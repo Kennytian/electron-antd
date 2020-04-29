@@ -4,5 +4,6 @@
   "proseWrap": "never",
   "eslintIntegration": true,
   "singleQuote": true,
+  "endOfLine": "auto",
   "trailingComma": "es5"
 }
