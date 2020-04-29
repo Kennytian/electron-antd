@@ -1,6 +1,7 @@
 {
-  "name": "electron-antd",
-  "appId": "org.electron.electron-antd",
+  "name": "electron-export",
+  "productName": "旧系统员工导出",
+  "appId": "com.anlint.employee-export",
   "version": "1.0.0",
   "buildVersion": "0001",
   "description": "electron web app with ant design",
@@ -12,8 +13,7 @@
     "ts:build": "ts-node -P build/tsconfig.json build/tasks/build.ts",
     "dev": "cross-env NODE_ENV=development BUILD_ENV=dev npm run ts:dev",
     "build:dev": "cross-env NODE_ENV=production BUILD_ENV=dev npm run ts:build",
-    "build": "cross-env NODE_ENV=production BUILD_ENV=prod npm run ts:build",
-    "package": "electron-builder build --publish always"
+    "build": "cross-env NODE_ENV=production BUILD_ENV=prod npm run ts:build"
   },
   "dependencies": {
     "antd": "^4.1.5",

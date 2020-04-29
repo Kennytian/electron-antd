@@ -6,4 +6,6 @@ export function initRenderer() {
   global.__$store = remote.getGlobal('__$store');
 
   console.log('在 UI 线程显示===================');
+
+  console.log('在 UI 线程显示', process.env);
 }
