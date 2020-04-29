@@ -48,7 +48,7 @@ npm run build
 请在打包完成后检查 `release` 目录.
 
 ## FAQ
-- 国内 electron 安装缓慢问题,请查看此 [issue](https://github.com/lanten/electron-antd/issues/22) 
+- 国内 electron 安装缓慢问题,请查看此 [issue](https://github.com/Kennytian/electron-antd/issues/22) 
 
 ## License
 [MIT](./LICENSE)

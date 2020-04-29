@@ -16,10 +16,10 @@ export default class About extends React.Component<PageProps> {
           Copyright © {new Date().getFullYear()}{' '}
           <a
             onClick={() => {
-              shell.openExternal('https://github.com/lanten');
+              shell.openExternal('https://github.com/Kennytian');
             }}
           >
-            lanten.
+            Kennytian.
           </a>{' '}
           All rights (demo)
         </p>
