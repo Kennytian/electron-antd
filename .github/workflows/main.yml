@@ -51,15 +51,14 @@ jobs:
           mkdir artifacts
           mv "release/(*.exe,*.deb,*.AppImage,*.dmg)" artifacts || true
 
-       - name: Cleanup artifacts Win
-         if: matrix.os == 'windows-latest'
-         run: |
-           mkdir artifacts
-           mv release/*.exe artifacts
+      - name: Cleanup artifacts Win
+        if: matrix.os == 'windows-latest'
+        run: |
+          mkdir artifacts
+          mv release/*.exe artifacts
 
-       - name: Upload artifacts
-         uses: actions/upload-artifact@v2
-         with:
-           name: ${{matrix.os}}
-           path: artifacts
-
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: ${{matrix.os}}
+          path: artifacts
