@@ -29,3 +29,10 @@ if (filePath && !canceled) {
 }
 ```
 
+### TODO
+- electron uploader
+    - https://segmentfault.com/a/1190000017492685
+    - https://juejin.im/post/5dd0b407e51d453af47ce75c
+    - https://www.jianshu.com/p/15bde714e198
+    - https://blog.51cto.com/xvjunjie/2484067
+
