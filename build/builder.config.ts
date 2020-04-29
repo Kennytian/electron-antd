@@ -14,7 +14,7 @@ const {
   npm_package_productName: productName,
   npm_package_buildVersion: buildVersion,
   npm_package_appId: appId,
-  npm_package_version: version,
+  // npm_package_version: version,
 } = process.env;
 
 const config: Configuration = {
@@ -22,10 +22,11 @@ const config: Configuration = {
   buildVersion,
   appId,
   files: ['dist', 'assets', 'package.json'],
-  asar: false,
+  asar: true,
   directories: {
     buildResources: 'assets',
-    output: path.join(devConfig.release, `${productName}-release-${version}.${buildVersion}`),
+    // output: path.join(devConfig.release, `${productName}-release-${version}.${buildVersion}`),
+    output: devConfig.release,
   },
   win: {
     icon: ICON_ICO,
