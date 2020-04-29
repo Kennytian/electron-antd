@@ -64,7 +64,9 @@ jobs:
       - name: Move Windows platform exe file
         if: matrix.os == 'windows-latest'
         run: |
-          mv "release/${{steps.productName.outputs.prop}}-${{steps.version.outputs.prop}}.exe" artifacts
+          ls reslease
+          mv "release/${{steps.productName.outputs.prop}} ${{steps.version.outputs.prop}}.msi" artifacts
+          mv "release/${{steps.productName.outputs.prop}} Setup ${{steps.version.outputs.prop}}.exe" artifacts
 
       - name: Move macOS platform dmg file
         if: matrix.os == 'macos-latest'
