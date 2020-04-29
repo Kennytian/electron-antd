@@ -59,7 +59,7 @@ jobs:
       - run: echo ${{steps.productName.outputs.prop}}
 
       - name: Create artifact folder
-      - run: mkdir artifacts
+        run: mkdir artifacts
 
       - name: Move Windows platform exe file
         if: matrix.os == 'windows-latest'
