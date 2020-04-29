@@ -40,7 +40,7 @@ jobs:
 
       - name: Release Electron app
         run: |
-          yarn package
+          yarn build
 
       - name: Upload artifact file
         uses: actions/upload-artifact@v1
