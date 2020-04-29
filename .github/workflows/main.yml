@@ -11,7 +11,7 @@ jobs:
     runs-on: ${{matrix.os}}
     strategy:
       matrix:
-        os: [windows-2016] # [windows-2016, macOS-10.14, ubuntu-18.04]
+        os: [macos-10.15,ubuntu-16.04,windows-2016]
 
     steps:
       - name: Checks out my repository
@@ -42,9 +42,24 @@ jobs:
         run: |
           yarn build
 
-      - name: Upload artifact file
-        uses: actions/upload-artifact@v1
+      - run: echo hi > world.txt
+      - uses: actions/upload-artifact@v2
         with:
-          name: ${{ matrix.os }}
-          path: dist
+          path: world.txt
+
+      - run: echo howdy > extra-file.txt
+      - uses: actions/upload-artifact@v2
+        with:
+          path: extra-file.txt
+
+      - run: echo hello > world.txt
+      - uses: actions/upload-artifact@v2
+        with:
+          path: world.txt
+
+      - name: Upload artifact file
+        uses: actions/upload-artifact@v2
+        with:
+          name: my-artifact
+          path: release/**/旧系统员工导出-1.0.0.dmg
 
