@@ -22,7 +22,7 @@ const config: Configuration = {
   buildVersion,
   appId,
   files: ['dist', 'assets', 'package.json'],
-  asar: false,
+  asar: true,
   directories: {
     buildResources: 'assets',
     // output: path.join(devConfig.release, `${productName}-release-${version}.${buildVersion}`),
