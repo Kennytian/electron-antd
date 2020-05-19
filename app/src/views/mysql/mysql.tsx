@@ -7,6 +7,7 @@ import './mysql.less';
 
 const xlsx = require('node-xlsx');
 const toArray = require('lodash.toarray');
+const moment = require('moment');
 
 const mysql = require('mysql');
 const connection = mysql.createConnection({
@@ -23,6 +24,8 @@ export default class MySQL extends React.Component<PageProps> {
     dataSource: [],
   };
 
+  private readonly timeNow = () => moment(Date.now()).format('YYYYMMDD-HHmmss');
+
   componentDidMount(): void {
     connection.connect();
     connection.query(EMP_ALL, (error: any, results: ReadonlyArray<any>) => {
@@ -37,7 +40,7 @@ export default class MySQL extends React.Component<PageProps> {
     const defaultName = '旧员工导出数据';
     const options: Electron.SaveDialogOptions = {
       title: '保存文件',
-      defaultPath: defaultName,
+      defaultPath: `${defaultName}-${this.timeNow()}`,
       buttonLabel: '保存',
       filters: [
         { name: 'Excel文件', extensions: ['xlsx'] },
