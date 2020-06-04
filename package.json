@@ -17,7 +17,7 @@
     "package": "electron-builder build --publish never"
   },
   "dependencies": {
-    "antd": "^4.2.4",
+    "antd": "^4.3.1",
     "axios": "^0.19.2",
     "chalk": "^4.0.0",
     "classnames": "^2.2.6",
@@ -70,7 +70,7 @@
     "@typescript-eslint/parser": "^2.34.0",
     "electron": "^9.0.2",
     "electron-builder": "^22.7.0",
-    "eslint": "^7.0.0",
+    "eslint": "^7.1.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-loader": "^4.0.2",
     "eslint-plugin-jsx-control-statements": "^2.2.1",
