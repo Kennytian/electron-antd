@@ -64,6 +64,5 @@ module.exports = {
     '@typescript-eslint/no-empty-interface': 0,
     '@typescript-eslint/no-empty-function': 1,
     '@typescript-eslint/no-unused-vars': 1, // 导入内容未使用
-    '@typescript-eslint/camelcase': 1,
   },
 };
