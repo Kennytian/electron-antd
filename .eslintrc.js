@@ -5,9 +5,7 @@
 
 module.exports = {
   root: true,
-
   parser: '@typescript-eslint/parser', // 指定ESLint解析器
-
   extends: [
     'plugin:@typescript-eslint/recommended',
     'plugin:react/recommended',
