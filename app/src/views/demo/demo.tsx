@@ -131,6 +131,10 @@ export default class Demo extends React.Component<DemoProps, DemoState> {
               <Button className="ml-16" type="primary" onClick={this.requestTestErrorModal.bind(this)}>
                 Request Error (modal)
               </Button>
+
+              <Button className="ml-16" type="primary" onClick={this.requestQRCode}>
+                requestQRCode
+              </Button>
             </div>
 
             <Input.TextArea value={JSON.stringify(resData)} autoSize />
@@ -175,6 +179,17 @@ export default class Demo extends React.Component<DemoProps, DemoState> {
       })
       .finally(() => this.setState({ loading: false }));
   }
+
+  requestQRCode = () => {
+    this.setState({ loading: true });
+    $api
+      .getLoginQRCode({})
+      .then((resData) => {
+        console.log('resData====', resData);
+        this.setState({ resData });
+      })
+      .finally(() => this.setState({ loading: false }));
+  };
 
   requestTestError() {
     this.setState({ loading: true });

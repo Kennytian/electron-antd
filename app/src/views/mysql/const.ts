@@ -1,5 +1,5 @@
 /* eslint-disable */
-export const EMP_ALL = `select ifnull(e.Name,'') 姓名, '' as '部门', '' as '小组', '' as '职务', ifnull(e.Phone,'') as 手机号, ifnull(e.Identity,'') as 身份证, ifnull(e.CreaterTime,'') as 入职时间, (case e.IsQuite when 0 then '在职' when 1 then '离职' end) as 状态, e.ID as 旧系统员工ID, substring_index(e.code,' ',1) as 旧系统小组,substring_index(e.code,' ',-1) as 旧系统编号 from tbl_emp as e where e.Code != 'admin' and e.Code not like '%磅%' and e.isQuite=0 order by e.CreaterTime desc;`;
+export const EMP_ALL = `select ifnull(e.Name,'') 姓名, '' as '部门', '' as '小组', '' as '职务', ifnull(e.Phone,'') as 手机号, ifnull(e.Identity,'') as 身份证, ifnull(e.CreaterTime,'') as 入职时间, (case e.IsQuite when 0 then '在职' when 1 then '离职' end) as 状态, e.CardID as 旧系统员工ID, substring_index(e.code,' ',1) as 旧系统小组,substring_index(e.code,' ',-1) as 旧系统编号 from tbl_emp as e where e.Code != 'admin' and e.Code not like '%磅%' and e.isQuite=0 order by 旧系统小组 asc, 旧系统编号 asc;`;
 
 export const TABLE_COLS = [
   {

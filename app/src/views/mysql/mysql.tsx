@@ -9,21 +9,17 @@ const xlsx = require('node-xlsx');
 const toArray = require('lodash.toarray');
 
 const mysql = require('mysql');
-const connection = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: 'root',
-  database: 'ews',
-});
+const mysqlConfig = { host: 'localhost', user: 'root', password: 'root', database: 'ews' };
 
 let exportData: ReadonlyArray<any> = [];
 
-export default class MySQL extends React.Component<PageProps> {
+export default class MySQL extends React.PureComponent<PageProps> {
   state = {
     dataSource: [],
   };
 
   componentDidMount(): void {
+    const connection = mysql.createConnection(mysqlConfig);
     connection.connect();
     connection.query(EMP_ALL, (error: any, results: ReadonlyArray<any>) => {
       if (error) throw error;
