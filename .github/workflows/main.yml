@@ -1,0 +1,85 @@
+name: Build/Release
+
+on:
+  push:
+    branches: [ develop ]
+    tags:
+      - 'v*.*.*'
+
+jobs:
+  release:
+    runs-on: ${{matrix.os}}
+    strategy:
+      matrix:
+        os: [macos-latest,ubuntu-latest,windows-latest]
+
+    steps:
+      - name: Checks out my repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 1
+
+      - name: Get yarn cache
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+
+      - name: Cache dependencies
+        uses: actions/cache@v1.1.2
+        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
+      - name: Install yarn dependencies
+        run: |
+          echo "Node.js runtime version: $(node -v)"
+          yarn config set registry https://registry.npm.taobao.org
+          yarn
+
+      - name: Release Electron app
+        run: |
+          yarn build
+
+      - name: Get package.json version
+        id: version
+        uses: notiz-dev/github-action-json-property@release
+        with:
+          path: ./package.json
+          prop_path: version
+      - run: echo ${{steps.version.outputs.prop}}
+
+      - name: Get package.json productName
+        id: productName
+        uses: notiz-dev/github-action-json-property@release
+        with:
+          path: ./package.json
+          prop_path: productName
+      - run: echo ${{steps.productName.outputs.prop}}
+
+      - name: Create artifact folder
+        run: mkdir artifacts
+
+      - name: Move Windows platform exe file
+        if: matrix.os == 'windows-latest'
+        run: |
+          ls release
+          mv "release/${{steps.productName.outputs.prop}} ${{steps.version.outputs.prop}}.msi" artifacts
+          mv "release/${{steps.productName.outputs.prop}} Setup ${{steps.version.outputs.prop}}.exe" artifacts
+
+      - name: Move macOS platform dmg file
+        if: matrix.os == 'macos-latest'
+        run: |
+          mv "release/${{steps.productName.outputs.prop}}-${{steps.version.outputs.prop}}.dmg" artifacts
+
+      - name: Move Ubuntu platform AppImage file
+        if: matrix.os == 'ubuntu-latest'
+        run: |
+          mv "release/${{steps.productName.outputs.prop}}-${{steps.version.outputs.prop}}.AppImage" artifacts
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: ${{matrix.os}}
+          path: artifacts

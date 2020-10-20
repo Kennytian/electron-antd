@@ -28,5 +28,17 @@
     "href": "#/about",
     "title": "About",
     "icon": "information"
+  },
+  {
+    "key": "MySQL",
+    "href": "#/mysql",
+    "title": "MySQL",
+    "icon": "information"
+  },
+  {
+    "key": "login",
+    "href": "#/login",
+    "title": "登录",
+    "icon": "login-circle"
   }
 ]

@@ -5,9 +5,7 @@
 
 module.exports = {
   root: true,
-
   parser: '@typescript-eslint/parser', // 指定ESLint解析器
-
   extends: [
     'plugin:@typescript-eslint/recommended',
     'plugin:react/recommended',
@@ -56,14 +54,16 @@ module.exports = {
     'jsx-control-statements/jsx-use-if-tag': 0, // 强制在 jsx 中使用 if 判断
     'jsx-control-statements/jsx-jcs-no-undef': 0,
     '@typescript-eslint/no-explicit-any': 0, // 禁用 any 类型
+    '@typescript-eslint/ban-ts-comment': 0, // 允许使用 // @ts-ignore 注释
     '@typescript-eslint/ban-ts-ignore': 0, // 禁用 @ts-ignore
+    '@typescript-eslint/ban-types': 0, // xxx
     '@typescript-eslint/explicit-function-return-type': 0, // 在函数和类方法上需要显式的返回类型
+    '@typescript-eslint/explicit-module-boundary-types': 0, // 在 module 上需要显式的返回类型
     '@typescript-eslint/no-var-requires': 0, // 除 import 语句外，禁止使用require语句
     '@typescript-eslint/no-namespace': 0, // 禁用 namespace
     '@typescript-eslint/no-use-before-define': 0,
     '@typescript-eslint/no-empty-interface': 0,
     '@typescript-eslint/no-empty-function': 1,
     '@typescript-eslint/no-unused-vars': 1, // 导入内容未使用
-    '@typescript-eslint/camelcase': 1,
   },
 };
